@@ -1,6 +1,6 @@
 package aroundtheeurope.takeflights.Models;
 
-public class FlightFaresRyanair {
+public class FlightFares {
     private String flightNumber;
     private String departureAt;
     private String originAirportName;
@@ -9,9 +9,9 @@ public class FlightFaresRyanair {
     private String destinationAirportCode;
     private double price;
 
-    public FlightFaresRyanair(String flightNumber, String departureAt, String originAirportName,
-                              String originAirportCode, String destinationAirportName, String destinationAirportCode,
-                              double price) {
+    public FlightFares (String flightNumber, String departureAt, String originAirportName,
+                       String originAirportCode, String destinationAirportName, String destinationAirportCode,
+                       double price) {
         this.flightNumber = flightNumber;
         this.departureAt = departureAt;
         this.originAirportName = originAirportName;

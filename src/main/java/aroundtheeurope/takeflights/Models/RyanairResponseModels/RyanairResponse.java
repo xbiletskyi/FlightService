@@ -10,6 +10,12 @@ public class RyanairResponse {
     @JsonProperty("fares")
     private List<Fare> fares;
 
+    public RyanairResponse() {}
+
+    public RyanairResponse(List<Fare> fares) {
+        this.fares = fares;
+    }
+
     // Getters and setters
     public List<Fare> getFares() {
         return fares;

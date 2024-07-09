@@ -8,6 +8,12 @@ public class Fare {
     @JsonProperty("outbound")
     private Outbound outbound;
 
+    public Fare() {}
+
+    public Fare(Outbound outbound) {
+        this.outbound = outbound;
+    }
+
     // Getters and setters
     public Outbound getOutbound() {
         return outbound;

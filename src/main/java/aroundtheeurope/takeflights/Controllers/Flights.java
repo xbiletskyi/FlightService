@@ -1,7 +1,7 @@
 package aroundtheeurope.takeflights.Controllers;
 
 import aroundtheeurope.takeflights.Redis.Cacher;
-import aroundtheeurope.takeflights.Models.FlightFaresRyanair;
+import aroundtheeurope.takeflights.Models.FlightFares;
 import aroundtheeurope.takeflights.Services.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +23,8 @@ public class Flights {
     }
 
     @GetMapping("/flights")
-    List<FlightFaresRyanair> flights(@RequestParam("origin") String origin, @RequestParam("departure_at") String departureAt) {
-        List<FlightFaresRyanair> flightData = cacher.retrieveCache(origin, departureAt);
+    List<FlightFares> flights(@RequestParam("origin") String origin, @RequestParam("departure_at") String departureAt) {
+        List<FlightFares> flightData = cacher.retrieveCache(origin, departureAt);
         if (flightData == null) {
             flightData = flightService.findCheapestFlights(origin, departureAt);
             if (flightData != null) {

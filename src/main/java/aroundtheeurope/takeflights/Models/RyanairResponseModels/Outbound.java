@@ -20,6 +20,16 @@ public class Outbound {
     @JsonProperty("price")
     private Price price;
 
+    public Outbound() {}
+
+    public Outbound (String flightNumber, String departureDate, Airport departureAirport, Airport arrivalAirport, Price price) {
+        this.flightNumber = flightNumber;
+        this.departureDate = departureDate;
+        this.departureAirport = departureAirport;
+        this.arrivalAirport = arrivalAirport;
+        this.price = price;
+    }
+
     // Getters and setters
     public String getFlightNumber() {
         return flightNumber;

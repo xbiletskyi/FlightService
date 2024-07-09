@@ -1,10 +1,8 @@
 package aroundtheeurope.takeflights.Services;
 
-import aroundtheeurope.takeflights.Models.FlightFaresRyanair;
+import aroundtheeurope.takeflights.Models.FlightFares;
 import aroundtheeurope.takeflights.Models.RyanairResponseModels.Fare;
 import aroundtheeurope.takeflights.Models.RyanairResponseModels.RyanairResponse;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +11,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -33,17 +30,16 @@ public class FlightService {
         this.objectMapper = objectMapper;
     }
 
-    public List<FlightFaresRyanair> findCheapestFlights(String origin, String departureAt) {
+    public List<FlightFares> findCheapestFlights(String origin, String departureAt) {
         String url = API_URL + REQUEST_PARAMETERS + "&departureAirportIataCode=" + origin +
                 "&outboundDepartureDateFrom=" + departureAt + "&outboundDepartureDateTo=" + departureAt;
-//        System.out.println("Used API call: " + url);
         String response = restTemplate.getForObject(url, String.class);
-        List<FlightFaresRyanair> flights = new ArrayList<>();
+        List<FlightFares> flights = new ArrayList<>();
         try{
             RyanairResponse ryanairResponse = objectMapper.readValue(response, RyanairResponse.class);
             List<Fare> fares = ryanairResponse.getFares();
             for (Fare fare : fares) {
-                FlightFaresRyanair flightFare = new FlightFaresRyanair(
+                FlightFares flightFare = new FlightFares(
                         fare.getOutbound().getFlightNumber(),
                         fare.getOutbound().getDepartureDate(),
                         fare.getOutbound().getDepartureAirport().getName(),
