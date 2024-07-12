@@ -11,11 +11,23 @@ public class Airport {
     @JsonProperty("name")
     private String name;
 
+    @JsonProperty("city")
+    private City city;
+
     public Airport() {}
 
-    public Airport(String iataCode, String name) {
+    public Airport(String iataCode, String name, City city) {
         this.iataCode = iataCode;
         this.name = name;
+        this.city = city;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public String getName() {
