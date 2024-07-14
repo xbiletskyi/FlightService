@@ -154,7 +154,7 @@ docker build -t takeflights:latest .
 docker run -d -p 6379:6379 --name redis redis
 
 # Run the TakeFlights container
-docker run -d -p 8080:8080 --name takeflights --link redis:redis -e REDIS_HOST=redis -e REDIS_PORT=6379 takeflights:latest
+docker run -d -p 60000:8080 --name takeflights --link redis:redis -e REDIS_HOST=redis -e REDIS_PORT=6379 takeflights:latest
 
 # Display running containers
 docker ps
