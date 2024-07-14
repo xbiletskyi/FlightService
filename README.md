@@ -139,3 +139,23 @@ curl -X GET "http://localhost:60000/flights?origin=JFK&departure_at=2024-07-20&s
 - Java 21
 - Gradle
 - Redis server
+
+### Run script
+```bash
+#!/bin/bash
+# Clone the repository
+git clone https://github.com/xbiletskyi/TakeFlights
+cd TakeFlights
+
+# Build the Docker image
+docker build -t takeflights:latest .
+
+# Run Redis container
+docker run -d -p 6379:6379 --name redis redis
+
+# Run the TakeFlights container
+docker run -d -p 8080:8080 --name takeflights --link redis:redis -e REDIS_HOST=redis -e REDIS_PORT=6379 takeflights:latest
+
+# Display running containers
+docker ps
+```

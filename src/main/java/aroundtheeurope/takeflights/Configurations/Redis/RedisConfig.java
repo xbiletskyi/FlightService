@@ -2,6 +2,7 @@ package aroundtheeurope.takeflights.Configurations.Redis;
 
 import aroundtheeurope.takeflights.Models.FlightFares;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
@@ -16,6 +17,8 @@ import java.util.List;
 
 @Configuration
 public class RedisConfig {
+    @Value("${spring.data.redis.port}")
+    private int redisPort;
 
     @Bean
     public LettuceConnectionFactory lettuceConnectionFactory() {
@@ -25,7 +28,7 @@ public class RedisConfig {
                 .shutdownTimeout(Duration.ZERO)
                 .build();
 
-        return new LettuceConnectionFactory(new RedisStandaloneConfiguration("localhost", 6379), clientConfig);
+        return new LettuceConnectionFactory(new RedisStandaloneConfiguration("localhost", redisPort), clientConfig);
     }
 
     @Bean
