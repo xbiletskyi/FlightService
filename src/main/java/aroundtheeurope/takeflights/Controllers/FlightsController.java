@@ -3,6 +3,7 @@ package aroundtheeurope.takeflights.Controllers;
 import aroundtheeurope.takeflights.Models.FlightFares;
 import aroundtheeurope.takeflights.Services.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,8 +25,22 @@ public class FlightsController {
     ResponseEntity<List<FlightFares>> flights(@RequestParam("origin") String origin,
                                         @RequestParam("departure_at") String departureAt,
                                         @RequestParam(value = "schengenOnly", defaultValue = "false") boolean schengenOnly) {
-        List<FlightFares> flightData = flightService.findCheapestFlights(origin, departureAt, schengenOnly);
-        return ResponseEntity.ok(flightData);
+        try {
+            if (origin == null || origin.isEmpty() || departureAt == null || departureAt.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            }
+
+            List<FlightFares> flightData = flightService.findCheapestFlights(origin, departureAt, schengenOnly);
+
+            if (flightData.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+            }
+
+            return ResponseEntity.ok(flightData);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
 
