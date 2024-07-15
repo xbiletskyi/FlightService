@@ -1,5 +1,9 @@
 package aroundtheeurope.takeflights.Models;
 
+/**
+ * Represents the flight fares with details such as flight number, departure time,
+ * origin and destination airports, and price.
+ */
 public class FlightFares {
     private String flightNumber;
     private String departureAt;
@@ -12,8 +16,25 @@ public class FlightFares {
     private double price;
     private String currencyCode;
 
+    /**
+     * Default constructor for FlightFares.
+     */
     public FlightFares () {}
 
+    /**
+     * Constructor for FlightFares.
+     *
+     * @param flightNumber the flight number
+     * @param departureAt the departure time
+     * @param originAirportName the name of the origin airport
+     * @param originAirportCode the IATA code of the origin airport
+     * @param originCountryCode the country code of the origin airport
+     * @param destinationAirportName the name of the destination airport
+     * @param destinationAirportCode the IATA code of the destination airport
+     * @param destinationCountryCode the country code of the destination airport
+     * @param price the price of the flight
+     * @param currencyCode the currency code of the price
+     */
     public FlightFares (String flightNumber,
                         String departureAt,
                         String originAirportName,
@@ -36,6 +57,7 @@ public class FlightFares {
         this.currencyCode = currencyCode;
     }
 
+    // Getters and setters
     public String getCurrencyCode() {
         return currencyCode;
     }

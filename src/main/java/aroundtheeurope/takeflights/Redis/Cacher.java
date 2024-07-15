@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Cacher class handles caching of flight data in Redis.
+ */
 @Component
 public class Cacher {
     private final RedisTemplate<String, String> redisTemplate;
@@ -18,6 +21,12 @@ public class Cacher {
     @Value("${cache.timeout.hours}")
     private long timeoutHours;
 
+    /**
+     * Constructor for Cacher.
+     *
+     * @param redisTemplate the RedisTemplate to interact with Redis
+     * @param objectMapper the ObjectMapper to serialize and deserialize objects
+     */
     @Autowired
     public Cacher(RedisTemplate<String, String> redisTemplate,
                   ObjectMapper objectMapper) {
@@ -25,6 +34,13 @@ public class Cacher {
         this.objectMapper = objectMapper;
     }
 
+    /**
+     * Retrieves cached flight data from Redis.
+     *
+     * @param origin the origin airport code
+     * @param departureAt the departure date
+     * @return the list of FlightFares if found in cache, otherwise null
+     */
     public List<FlightFares> retrieveCache(String origin, String departureAt) {
         String key = generateKey(origin, departureAt);
         String cachedData = redisTemplate.opsForValue().get(key);
@@ -38,6 +54,13 @@ public class Cacher {
         return null;
     }
 
+    /**
+     * Stores flight data in Redis cache.
+     *
+     * @param origin the origin airport code
+     * @param departureAt the departure date
+     * @param flightData the list of FlightFares to cache
+     */
     public void storeCache(String origin, String departureAt, List<FlightFares> flightData) {
         String key = generateKey(origin, departureAt);
         try {
@@ -48,6 +71,13 @@ public class Cacher {
         }
     }
 
+    /**
+     * Generates a unique key for caching based on origin and departure date.
+     *
+     * @param origin the origin airport code
+     * @param departureAt the departure date
+     * @return the generated cache key
+     */
     private String generateKey(String origin, String departureAt){
         return origin + ":" + departureAt;
     }

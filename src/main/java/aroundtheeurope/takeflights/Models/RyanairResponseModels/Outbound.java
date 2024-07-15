@@ -3,6 +3,9 @@ package aroundtheeurope.takeflights.Models.RyanairResponseModels;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Represents the details of an outbound flight.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Outbound {
     @JsonProperty("flightNumber")
@@ -20,8 +23,20 @@ public class Outbound {
     @JsonProperty("price")
     private Price price;
 
+    /**
+     * Default constructor for Outbound.
+     */
     public Outbound() {}
 
+    /**
+     * Constructor for Outbound.
+     *
+     * @param flightNumber the flight number
+     * @param departureDate the departure date
+     * @param departureAirport the departure airport details
+     * @param arrivalAirport the arrival airport details
+     * @param price the price details
+     */
     public Outbound (String flightNumber, String departureDate, Airport departureAirport, Airport arrivalAirport, Price price) {
         this.flightNumber = flightNumber;
         this.departureDate = departureDate;

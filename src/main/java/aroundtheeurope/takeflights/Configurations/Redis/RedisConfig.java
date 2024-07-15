@@ -15,11 +15,19 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import java.time.Duration;
 import java.util.List;
 
+/**
+ * Configuration class for setting up Redis.
+ */
 @Configuration
 public class RedisConfig {
     @Value("${spring.data.redis.port}")
     private int redisPort;
 
+    /**
+     * Creates and configures a LettuceConnectionFactory bean.
+     *
+     * @return the configured LettuceConnectionFactory
+     */
     @Bean
     public LettuceConnectionFactory lettuceConnectionFactory() {
 
@@ -31,6 +39,13 @@ public class RedisConfig {
         return new LettuceConnectionFactory(new RedisStandaloneConfiguration("localhost", redisPort), clientConfig);
     }
 
+    /**
+     * Creates and configures a RedisTemplate bean for serializing and deserializing flight fares.
+     *
+     * @param lettuceConnectionFactory the connection factory for Redis
+     * @param redisObjectMapper the ObjectMapper for Redis serialization
+     * @return the configured RedisTemplate
+     */
     @Bean
     public RedisTemplate<String, List<FlightFares>> redisTemplate(LettuceConnectionFactory lettuceConnectionFactory, ObjectMapper redisObjectMapper) {
         RedisTemplate<String, List<FlightFares>> template = new RedisTemplate<>();

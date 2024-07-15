@@ -7,9 +7,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
+/**
+ * Configuration class for setting up ObjectMapper for Redis.
+ */
 @Configuration
 public class RedisObjectMapperConfig {
 
+    /**
+     * Creates and configures an ObjectMapper bean for Redis.
+     *
+     * @return the configured ObjectMapper
+     */
     @Bean
     public ObjectMapper redisObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();

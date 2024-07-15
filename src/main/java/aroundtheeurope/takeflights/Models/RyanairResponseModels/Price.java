@@ -3,6 +3,9 @@ package aroundtheeurope.takeflights.Models.RyanairResponseModels;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Represents the price details of a flight.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Price {
     @JsonProperty("value")
@@ -11,13 +14,23 @@ public class Price {
     @JsonProperty("currencyCode")
     private String currencyCode;
 
+    /**
+     * Default constructor for Price.
+     */
     public Price() {}
 
+    /**
+     * Constructor for Price.
+     *
+     * @param value the value of the price
+     * @param currencyCode the currency code of the price
+     */
     public Price(double value, String currencyCode) {
         this.value = value;
         this.currencyCode = currencyCode;
     }
 
+    // Getters and setters
     public String getCurrencyCode() {
         return currencyCode;
     }

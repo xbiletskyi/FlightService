@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Service class to find the cheapest flights.
+ */
 @Service
 public class FlightService {
     private final RestTemplate restTemplate;
@@ -31,6 +34,13 @@ public class FlightService {
             "fi", "fr", "de", "gr", "hu", "is", "it", "lv", "li", "lt", "lu", "mt", "nl", "no", "pl", "pt", "ro", "sk",
             "si", "es", "se", "ch");
 
+    /**
+     * Constructor for FlightService.
+     *
+     * @param restTemplate the RestTemplate to make HTTP requests
+     * @param objectMapper the ObjectMapper to serialize and deserialize objects
+     * @param cacher the Cacher to handle caching
+     */
     @Autowired
     public FlightService(RestTemplate restTemplate, ObjectMapper objectMapper, Cacher cacher) {
         this.restTemplate = restTemplate;
@@ -38,6 +48,15 @@ public class FlightService {
         this.cacher = cacher;
     }
 
+    /**
+     * Finds the cheapest flights from a specified origin on a given departure date.
+     * Optionally filters results to include only flights within the Schengen Area.
+     *
+     * @param origin the IATA code of the departure airport
+     * @param departureAt the departure date
+     * @param schengenOnly if true, only includes flights within the Schengen Area
+     * @return the list of FlightFares
+     */
     public List<FlightFares> findCheapestFlights(String origin, String departureAt, boolean schengenOnly) {
         List<FlightFares> allFlights = cacher.retrieveCache(origin, departureAt);
         if (allFlights == null) {
@@ -54,6 +73,13 @@ public class FlightService {
         return allFlights;
     }
 
+    /**
+     * Retrieves Ryanair flights from the external API.
+     *
+     * @param origin the IATA code of the departure airport
+     * @param departureAt the departure date
+     * @return the list of FlightFares
+     */
     public List<FlightFares> getRyanairFlights(String origin, String departureAt) {
         String url = API_URL + REQUEST_PARAMETERS + "&departureAirportIataCode=" + origin +
                 "&outboundDepartureDateFrom=" + departureAt + "&outboundDepartureDateTo=" + departureAt;

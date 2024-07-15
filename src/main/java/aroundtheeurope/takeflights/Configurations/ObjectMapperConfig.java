@@ -4,18 +4,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Configuration class for setting up ObjectMapper.
+ */
 @Configuration
 public class ObjectMapperConfig {
 
+    /**
+     * Creates and configures an ObjectMapper bean.
+     *
+     * @return the configured ObjectMapper
+     */
     @Bean
     public ObjectMapper objectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
-
-//        objectMapper.deactivateDefaultTyping();
-//        BasicPolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder()
-//                .allowIfSubType("takeflights.Models")
-//                .build();
-//        objectMapper.activateDefaultTyping(ptv, ObjectMapper.DefaultTyping.NON_FINAL);
 
         return objectMapper;
     }
