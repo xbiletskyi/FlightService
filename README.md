@@ -1,8 +1,8 @@
 # TakeFlights microservice 
 
 ## Introduction
-The 'TakeFlight' microservice is part of a larger project to find "Chained trip" between two airports.
-
+The 'TakeFlight' microservice is part of a larger project to find "Chained trip" between two airports.  
+[The overall project description](https://medium.com/@vidime.sa.buduci.rok/explore-europe-by-plane-using-this-tool-0cb52ac69b8b).
 ## Purpose overview 
 The microservice retrieves flights from external APIs and stores it to its own Redis database as cache. The main idea of
 creating separated microservice is to isolate communication with external API and storing the received data as cache to
