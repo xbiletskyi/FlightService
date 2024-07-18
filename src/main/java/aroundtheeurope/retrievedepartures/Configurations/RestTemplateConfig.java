@@ -1,4 +1,4 @@
-package aroundtheeurope.takeflights.Configurations;
+package aroundtheeurope.retrievedepartures.Configurations;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;

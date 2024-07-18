@@ -1,10 +1,12 @@
-package aroundtheeurope.takeflights.Models;
+package aroundtheeurope.retrievedepartures.Models;
+
+import aroundtheeurope.retrievedepartures.Models.RyanairResponseModels.Fare;
 
 /**
  * Represents the flight fares with details such as flight number, departure time,
  * origin and destination airports, and price.
  */
-public class FlightFares {
+public class DepartureInfo {
     private String flightNumber;
     private String departureAt;
     private String originAirportName;
@@ -19,7 +21,7 @@ public class FlightFares {
     /**
      * Default constructor for FlightFares.
      */
-    public FlightFares () {}
+    public DepartureInfo() {}
 
     /**
      * Constructor for FlightFares.
@@ -35,16 +37,16 @@ public class FlightFares {
      * @param price the price of the flight
      * @param currencyCode the currency code of the price
      */
-    public FlightFares (String flightNumber,
-                        String departureAt,
-                        String originAirportName,
-                        String originAirportCode,
-                        String originCountryCode,
-                        String destinationAirportName,
-                        String destinationAirportCode,
-                        String destinationCountryCode,
-                        double price,
-                        String currencyCode) {
+    public DepartureInfo(String flightNumber,
+                         String departureAt,
+                         String originAirportName,
+                         String originAirportCode,
+                         String originCountryCode,
+                         String destinationAirportName,
+                         String destinationAirportCode,
+                         String destinationCountryCode,
+                         double price,
+                         String currencyCode) {
         this.flightNumber = flightNumber;
         this.departureAt = departureAt;
         this.originAirportName = originAirportName;
@@ -57,6 +59,20 @@ public class FlightFares {
         this.currencyCode = currencyCode;
     }
 
+    public static DepartureInfo createFromRyanAirFare(Fare fare){
+        return new DepartureInfo(
+                fare.getOutbound().getFlightNumber(),
+                fare.getOutbound().getDepartureDate(),
+                fare.getOutbound().getDepartureAirport().getName(),
+                fare.getOutbound().getDepartureAirport().getIataCode(),
+                fare.getOutbound().getDepartureAirport().getCity().getCountryCode(),
+                fare.getOutbound().getArrivalAirport().getName(),
+                fare.getOutbound().getArrivalAirport().getIataCode(),
+                fare.getOutbound().getArrivalAirport().getCity().getCountryCode(),
+                fare.getOutbound().getPrice().getValue(),
+                fare.getOutbound().getPrice().getCurrencyCode()
+        );
+    }
     // Getters and setters
     public String getCurrencyCode() {
         return currencyCode;

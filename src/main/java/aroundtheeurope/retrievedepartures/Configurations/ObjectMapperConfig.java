@@ -1,4 +1,4 @@
-package aroundtheeurope.takeflights.Configurations;
+package aroundtheeurope.retrievedepartures.Configurations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;

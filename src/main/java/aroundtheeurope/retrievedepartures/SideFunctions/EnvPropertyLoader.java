@@ -1,4 +1,4 @@
-package aroundtheeurope.takeflights.SideFunctions;
+package aroundtheeurope.retrievedepartures.SideFunctions;
 
 import io.github.cdimascio.dotenv.Dotenv;
 

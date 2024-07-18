@@ -1,6 +1,6 @@
-package aroundtheeurope.takeflights.Configurations.Redis;
+package aroundtheeurope.retrievedepartures.Configurations.Redis;
 
-import aroundtheeurope.takeflights.Models.FlightFares;
+import aroundtheeurope.retrievedepartures.Models.DepartureInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -47,8 +47,8 @@ public class RedisConfig {
      * @return the configured RedisTemplate
      */
     @Bean
-    public RedisTemplate<String, List<FlightFares>> redisTemplate(LettuceConnectionFactory lettuceConnectionFactory, ObjectMapper redisObjectMapper) {
-        RedisTemplate<String, List<FlightFares>> template = new RedisTemplate<>();
+    public RedisTemplate<String, List<DepartureInfo>> redisTemplate(LettuceConnectionFactory lettuceConnectionFactory, ObjectMapper redisObjectMapper) {
+        RedisTemplate<String, List<DepartureInfo>> template = new RedisTemplate<>();
         template.setConnectionFactory(lettuceConnectionFactory);
         template.setKeySerializer(new StringRedisSerializer());
         template.setValueSerializer(new GenericJackson2JsonRedisSerializer(redisObjectMapper));

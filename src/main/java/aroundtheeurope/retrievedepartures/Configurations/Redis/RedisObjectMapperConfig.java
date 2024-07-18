@@ -1,4 +1,4 @@
-package aroundtheeurope.takeflights.Configurations.Redis;
+package aroundtheeurope.retrievedepartures.Configurations.Redis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

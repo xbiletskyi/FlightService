@@ -1,10 +1,10 @@
-# TakeFlights microservice 
+# RetrieveDepartures microservice 
 
 ## Introduction
-The 'TakeFlight' microservice is part of a larger project to find "Chained trip" between two airports.  
+The 'RetrieveDepartures' microservice is part of a larger project to find "Chained trip" between two airports.  
 [The overall project description](https://medium.com/@vidime.sa.buduci.rok/explore-europe-by-plane-using-this-tool-0cb52ac69b8b).
 ## Purpose overview 
-The microservice retrieves flights from external APIs and stores it to its own Redis database as cache. The main idea of
+The microservice retrieves flights from external API(s) and stores it to its own Redis database as cache. The main idea of
 creating separated microservice is to isolate communication with external API and storing the received data as cache to
 avoid exceeding rate-limits of external APIs. 
 
@@ -15,12 +15,12 @@ avoid exceeding rate-limits of external APIs.
 - Gradle
 
 ## Architecture diagram
-![Architecture diagram](./images/FlightService.jpg)
+![Architecture diagram](./images/RetrieveDeparturesService.jpg)
 
 ## Endpoints
-### Get cheapest flights
+### Get departures
 #### URL 
-'GET /flights'
+'GET /v1/departures'
 #### Description
 Retrieves the cheapest flight fares from a specified origin on a given departure date. Optionally filters results to 
 include only flights within the Schengen Area.
@@ -29,6 +29,7 @@ include only flights within the Schengen Area.
 |---------------|---------|----------|---------|----------------------------------------------------------------|
 | `origin`      | String  | Yes      | None    | The IATA code of the departure airport.                        |
 | `departure_at`| String  | Yes      | None    | The date of departure in the format `yyyy-MM-dd`.              |
+| `daysRange`   | int     | No       | 1       | Number of days in date range                                   |
 | `schengenOnly`| Boolean | No       | false   | If `true`, only includes flights within the Schengen Area.     |
 #### Responses 
 - **200 OK**
@@ -67,7 +68,7 @@ include only flights within the Schengen Area.
 #### Example Request
 
 ```bash
-curl -X GET "http://localhost:60000/flights?origin=JFK&departure_at=2024-07-20&schengenOnly=true"
+curl -X GET "http://localhost:60000/v1/departures?origin=JFK&departure_at=2024-07-20&schengenOnly=true"
 ```
 #### Example successful response
 ```json
@@ -144,17 +145,17 @@ curl -X GET "http://localhost:60000/flights?origin=JFK&departure_at=2024-07-20&s
 ```bash
 #!/bin/bash
 # Clone the repository
-git clone https://github.com/xbiletskyi/TakeFlights
-cd TakeFlights
+git clone https://github.com/xbiletskyi/RetrieveDepartures
+cd RetrieveDepartures
 
 # Build the Docker image
-docker build -t takeflights:latest .
+docker build -t retrievedepartures:latest .
 
 # Run Redis container
 docker run -d -p 6379:6379 --name redis redis
 
 # Run the TakeFlights container
-docker run -d -p 60000:8080 --name takeflights --link redis:redis -e REDIS_HOST=redis -e REDIS_PORT=6379 takeflights:latest
+docker run -d -p 60000:8080 --name retrievedepartures --link redis:redis -e REDIS_HOST=redis -e REDIS_PORT=6379 retrievedepartures:latest
 
 # Display running containers
 docker ps

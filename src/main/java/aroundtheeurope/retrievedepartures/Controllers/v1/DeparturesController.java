@@ -1,11 +1,12 @@
-package aroundtheeurope.takeflights.Controllers;
+package aroundtheeurope.retrievedepartures.Controllers.v1;
 
-import aroundtheeurope.takeflights.Models.FlightFares;
-import aroundtheeurope.takeflights.Services.FlightService;
+import aroundtheeurope.retrievedepartures.Models.DepartureInfo;
+import aroundtheeurope.retrievedepartures.Services.DeparturesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,18 +17,19 @@ import java.util.List;
  * This controller exposes endpoints to retrieve flight fares
  */
 @RestController
-public class FlightsController {
+@RequestMapping("/v1/departures")
+public class DeparturesController {
     @Autowired
-    private final FlightService flightService;
+    private final DeparturesService departuresService;
 
     /**
-     * Constructor for FlightsController.
+     * Constructor for DeparturesController.
      *
-     * @param flightService the service used to retrieve flight fares
+     * @param departuresService the service used to retrieve flight fares
      */
     @Autowired
-    public FlightsController(FlightService flightService) {
-        this.flightService = flightService;
+    public DeparturesController(DeparturesService departuresService) {
+        this.departuresService = departuresService;
     }
 
     /**
@@ -39,17 +41,18 @@ public class FlightsController {
      * @param schengenOnly if true, only includes flights within the Schengen Area
      * @return a ResponseEntity containing a list of FlightFares objects or an appropriate error status
      */
-    @GetMapping("/flights")
-    ResponseEntity<List<FlightFares>> flights(@RequestParam("origin") String origin,
-                                        @RequestParam("departure_at") String departureAt,
-                                        @RequestParam(value = "schengenOnly", defaultValue = "false") boolean schengenOnly) {
+    @GetMapping
+    ResponseEntity<List<DepartureInfo>> departures(@RequestParam("origin") String origin,
+                                                   @RequestParam("departureAt") String departureAt,
+                                                   @RequestParam(value = "daysRange", defaultValue = "1") int daysRange,
+                                                   @RequestParam(value = "schengenOnly", defaultValue = "false") boolean schengenOnly) {
         try {
             // validate required parameters
-            if (origin == null || origin.isEmpty() || departureAt == null || departureAt.isEmpty()) {
+            if (origin == null || origin.isEmpty() || departureAt == null || departureAt.isEmpty() || daysRange <= 0) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
             }
 
-            List<FlightFares> flightData = flightService.findCheapestFlights(origin, departureAt, schengenOnly);
+            List<DepartureInfo> flightData = departuresService.getDepartures(origin, departureAt, daysRange, schengenOnly);
 
             if (flightData.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);

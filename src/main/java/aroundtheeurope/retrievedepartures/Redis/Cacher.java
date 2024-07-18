@@ -1,6 +1,6 @@
-package aroundtheeurope.takeflights.Redis;
+package aroundtheeurope.retrievedepartures.Redis;
 
-import aroundtheeurope.takeflights.Models.FlightFares;
+import aroundtheeurope.retrievedepartures.Models.DepartureInfo;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,12 +41,12 @@ public class Cacher {
      * @param departureAt the departure date
      * @return the list of FlightFares if found in cache, otherwise null
      */
-    public List<FlightFares> retrieveCache(String origin, String departureAt) {
+    public List<DepartureInfo> retrieveCache(String origin, String departureAt) {
         String key = generateKey(origin, departureAt);
         String cachedData = redisTemplate.opsForValue().get(key);
         if (cachedData != null) {
             try {
-                return objectMapper.readValue(cachedData, new TypeReference<List<FlightFares>>() {});
+                return objectMapper.readValue(cachedData, new TypeReference<List<DepartureInfo>>() {});
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -61,7 +61,7 @@ public class Cacher {
      * @param departureAt the departure date
      * @param flightData the list of FlightFares to cache
      */
-    public void storeCache(String origin, String departureAt, List<FlightFares> flightData) {
+    public void storeCache(String origin, String departureAt, List<DepartureInfo> flightData) {
         String key = generateKey(origin, departureAt);
         try {
             String value = objectMapper.writeValueAsString(flightData);
