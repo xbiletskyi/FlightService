@@ -1,6 +1,6 @@
-package aroundtheeurope.retrievedepartures;
+package aroundtheeurope.flightservice;
 
-import aroundtheeurope.retrievedepartures.SideFunctions.EnvPropertyLoader;
+import aroundtheeurope.flightservice.SideFunctions.EnvPropertyLoader;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * The main entry point for the TakeFlights Spring Boot application.
  */
 @SpringBootApplication
-public class RetrieveDeparturesApplication {
+public class FlightServiceApplication {
     // Static block to load environment properties before the application starts
     static {
         EnvPropertyLoader.loadProperties();
@@ -20,6 +20,6 @@ public class RetrieveDeparturesApplication {
      * @param args command-line arguments
      */
     public static void main(String[] args) {
-        SpringApplication.run(RetrieveDeparturesApplication.class, args);
+        SpringApplication.run(FlightServiceApplication.class, args);
     }
 }

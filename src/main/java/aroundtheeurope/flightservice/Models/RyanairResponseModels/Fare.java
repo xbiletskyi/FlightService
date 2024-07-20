@@ -1,4 +1,4 @@
-package aroundtheeurope.retrievedepartures.Models.RyanairResponseModels;
+package aroundtheeurope.flightservice.Models.RyanairResponseModels;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

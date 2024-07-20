@@ -1,7 +1,7 @@
-package aroundtheeurope.retrievedepartures.Controllers.v1;
+package aroundtheeurope.flightservice.Controllers.v1;
 
-import aroundtheeurope.retrievedepartures.Models.DepartureInfo;
-import aroundtheeurope.retrievedepartures.Services.DeparturesService;
+import aroundtheeurope.flightservice.Models.DepartureInfo;
+import aroundtheeurope.flightservice.Services.DepartureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/v1/departures")
 public class DeparturesController {
     @Autowired
-    private final DeparturesService departuresService;
+    private final DepartureService departuresService;
 
     /**
      * Constructor for DeparturesController.
@@ -28,7 +28,7 @@ public class DeparturesController {
      * @param departuresService the service used to retrieve flight fares
      */
     @Autowired
-    public DeparturesController(DeparturesService departuresService) {
+    public DeparturesController(DepartureService departuresService) {
         this.departuresService = departuresService;
     }
 

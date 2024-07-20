@@ -1,10 +1,10 @@
-package aroundtheeurope.retrievedepartures;
+package aroundtheeurope.flightservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RetrieveDeparturesApplicationTests {
+class FlightServiceApplicationTests {
 
     @Test
     void contextLoads() {

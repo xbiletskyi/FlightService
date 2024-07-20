@@ -1,6 +1,6 @@
-package aroundtheeurope.retrievedepartures.Redis;
+package aroundtheeurope.flightservice.Redis;
 
-import aroundtheeurope.retrievedepartures.Models.DepartureInfo;
+import aroundtheeurope.flightservice.Models.DepartureInfo;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

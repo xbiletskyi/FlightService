@@ -1,6 +1,6 @@
-package aroundtheeurope.retrievedepartures.Models;
+package aroundtheeurope.flightservice.Models;
 
-import aroundtheeurope.retrievedepartures.Models.RyanairResponseModels.Fare;
+import aroundtheeurope.flightservice.Models.RyanairResponseModels.Fare;
 
 /**
  * Represents the flight fares with details such as flight number, departure time,

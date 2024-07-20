@@ -1,9 +1,9 @@
-package aroundtheeurope.retrievedepartures.Services;
+package aroundtheeurope.flightservice.Services;
 
-import aroundtheeurope.retrievedepartures.Models.DepartureInfo;
-import aroundtheeurope.retrievedepartures.Models.RyanairResponseModels.Fare;
-import aroundtheeurope.retrievedepartures.Models.RyanairResponseModels.RyanairResponse;
-import aroundtheeurope.retrievedepartures.Redis.Cacher;
+import aroundtheeurope.flightservice.Models.DepartureInfo;
+import aroundtheeurope.flightservice.Models.RyanairResponseModels.Fare;
+import aroundtheeurope.flightservice.Models.RyanairResponseModels.RyanairResponse;
+import aroundtheeurope.flightservice.Redis.Cacher;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * Service class to find the cheapest flights.
  */
 @Service
-public class DeparturesService {
+public class DepartureService {
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
     private final Cacher cacher;
@@ -44,7 +44,7 @@ public class DeparturesService {
      * @param cacher the Cacher to handle caching
      */
     @Autowired
-    public DeparturesService(RestTemplate restTemplate, ObjectMapper objectMapper, Cacher cacher) {
+    public DepartureService(RestTemplate restTemplate, ObjectMapper objectMapper, Cacher cacher) {
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
         this.cacher = cacher;
