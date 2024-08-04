@@ -44,15 +44,15 @@ public class DeparturesController {
     @GetMapping
     ResponseEntity<List<DepartureInfo>> departures(@RequestParam("origin") String origin,
                                                    @RequestParam("departureAt") String departureAt,
-                                                   @RequestParam(value = "daysRange", defaultValue = "1") int daysRange,
+                                                   @RequestParam(value = "dayRange", defaultValue = "1") int dayRange,
                                                    @RequestParam(value = "schengenOnly", defaultValue = "false") boolean schengenOnly) {
         try {
             // validate required parameters
-            if (origin == null || origin.isEmpty() || departureAt == null || departureAt.isEmpty() || daysRange <= 0) {
+            if (origin == null || origin.isEmpty() || departureAt == null || departureAt.isEmpty() || dayRange <= 0) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
             }
 
-            List<DepartureInfo> flightData = departuresService.getDepartures(origin, departureAt, daysRange, schengenOnly);
+            List<DepartureInfo> flightData = departuresService.getDepartures(origin, departureAt, dayRange, schengenOnly);
 
             if (flightData.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
