@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,13 +34,19 @@ public class FlightsBetweenService {
     }
 
     public List<DepartureInfo> getFlights(List<String> origins, List<String> destinations, String departureAt, int dayRange) {
-        return origins.stream()
-                .map(origin -> destinations.stream()
-                        .map(destination -> getRyanairOnDayFlight(origin, destination, departureAt))
-                        .flatMap(List::stream)
-                        .toList())
-                .flatMap(List::stream)
-                .toList();
+        List<DepartureInfo> flights = new ArrayList<>();
+        LocalDate departureDate = LocalDate.parse(departureAt, DateTimeFormatter.ISO_LOCAL_DATE);
+
+        for (String origin : origins) {
+            for (String destination : destinations) {
+                for (int i = 0; i <= dayRange; i++) {
+                    LocalDate currentDay = departureDate.plusDays(i);
+                    flights.addAll(getRyanairOnDayFlight(origin, destination, currentDay.toString()));
+                }
+            }
+        }
+
+        return flights;
     }
 
     public List<DepartureInfo> getRyanairOnDayFlight(String origin, String destination, String departureAt) {
