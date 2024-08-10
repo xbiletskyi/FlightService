@@ -39,9 +39,15 @@ public class FlightsBetweenService {
 
         for (String origin : origins) {
             for (String destination : destinations) {
-                for (int i = 0; i <= dayRange; i++) {
-                    LocalDate currentDay = departureDate.plusDays(i);
-                    flights.addAll(getRyanairOnDayFlight(origin, destination, currentDay.toString()));
+                LocalDate currentDay = departureDate;
+                for (int i = 0; i < dayRange; i++) {
+                    List<DepartureInfo> dayDepartures = cacher.retrieveCache(origin, destination, currentDay.toString());
+                    if (dayDepartures == null) {
+                        dayDepartures = getRyanairOnDayFlight(origin, destination, currentDay.toString());
+                        cacher.storeCache(origin, destination, currentDay.toString(), dayDepartures);
+                    }
+                    flights.addAll(dayDepartures);
+                    currentDay = currentDay.plusDays(1);
                 }
             }
         }
