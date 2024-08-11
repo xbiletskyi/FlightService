@@ -1,6 +1,8 @@
 package aroundtheeurope.flightservice.Services;
 
 import aroundtheeurope.flightservice.Models.DepartureInfo;
+import aroundtheeurope.flightservice.Models.RyanairOperatedAirportsResponse.ArrivalAirport;
+import aroundtheeurope.flightservice.Models.RyanairOperatedAirportsResponse.OperatedFlightData;
 import aroundtheeurope.flightservice.Models.RyanairResponseModels.Fare;
 import aroundtheeurope.flightservice.Models.RyanairResponseModels.RyanairResponse;
 import aroundtheeurope.flightservice.Redis.Cacher;
@@ -27,6 +29,9 @@ public class FlightsBetweenService {
     @Value("${ryanair.request.parameters}")
     private String REQUEST_PARAMETERS;
 
+    @Value("${ryanair.request.operated-airports-url}")
+    private String API_URL_OPERATED_AIRPORTS;
+
     public FlightsBetweenService(RestTemplate restTemplate, ObjectMapper objectMapper, Cacher cacher) {
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
@@ -38,7 +43,11 @@ public class FlightsBetweenService {
         LocalDate departureDate = LocalDate.parse(departureAt, DateTimeFormatter.ISO_LOCAL_DATE);
 
         for (String origin : origins) {
+            List<String> operatedCodes = getOperatedAirports(origin).stream().map(ArrivalAirport::getCode).toList();
             for (String destination : destinations) {
+                if (!operatedCodes.contains(destination)) {
+                    continue;
+                }
                 LocalDate currentDay = departureDate;
                 for (int i = 0; i < dayRange; i++) {
                     List<DepartureInfo> dayDepartures = cacher.retrieveCache(origin, destination, currentDay.toString());
@@ -72,5 +81,25 @@ public class FlightsBetweenService {
             e.printStackTrace();
         }
         return flights;
+    }
+
+    public List<ArrivalAirport> getOperatedAirports(String origin){
+        List<ArrivalAirport> arrivalAirports = cacher.retrieveOperatedAirportsCache(origin);
+        if (arrivalAirports != null) {
+            return arrivalAirports;
+        }
+
+        String url = API_URL_OPERATED_AIRPORTS + origin;
+        String response = restTemplate.getForObject(url, String.class);
+        try {
+            List<OperatedFlightData> operatedFlightData = objectMapper.readValue(response,
+                    objectMapper.getTypeFactory().constructCollectionType(List.class, OperatedFlightData.class));
+            arrivalAirports = operatedFlightData.stream().map(OperatedFlightData::getArrivalAirport).toList();
+            cacher.storeOperatedAirportsCache(origin, arrivalAirports);
+            return arrivalAirports;
+        } catch (IOException e){
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 }
