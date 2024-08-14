@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
  */
 @Service
 public class DepartureService {
+
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
     private final Cacher cacher;
@@ -44,7 +45,11 @@ public class DepartureService {
      * @param cacher the Cacher to handle caching
      */
     @Autowired
-    public DepartureService(RestTemplate restTemplate, ObjectMapper objectMapper, Cacher cacher) {
+    public DepartureService(
+            RestTemplate restTemplate,
+            ObjectMapper objectMapper,
+            Cacher cacher
+    ) {
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
         this.cacher = cacher;
@@ -60,7 +65,12 @@ public class DepartureService {
      * @param schengenOnly if true, only includes flights within the Schengen Area
      * @return the list of FlightFares
      */
-    public List<DepartureInfo> getDepartures(String origin, String departureAt, int daysRange, boolean schengenOnly) {
+    public List<DepartureInfo> getDepartures(
+            String origin,
+            String departureAt,
+            int daysRange,
+            boolean schengenOnly
+    ) {
         List<DepartureInfo> allDepartures = new ArrayList<>();
         LocalDate currentDate = LocalDate.parse(departureAt, DateTimeFormatter.ISO_LOCAL_DATE);
         for (int i = 0; i < daysRange; i++) {
@@ -90,7 +100,10 @@ public class DepartureService {
      * @param departureAt the departure date
      * @return the list of FlightFares
      */
-    public List<DepartureInfo> getRyanairOnDayDepartures(String origin, String departureAt) {
+    public List<DepartureInfo> getRyanairOnDayDepartures(
+            String origin,
+            String departureAt
+    ) {
         String url = API_URL + REQUEST_PARAMETERS + "&departureAirportIataCode=" + origin +
                 "&outboundDepartureDateFrom=" + departureAt + "&outboundDepartureDateTo=" + departureAt;
         String response = restTemplate.getForObject(url, String.class);

@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 public class Cacher {
+
     private final RedisTemplate<String, String> redisTemplate;
     private final ObjectMapper objectMapper;
     @Value("${cache.timeout.hours}")
@@ -28,8 +29,10 @@ public class Cacher {
      * @param objectMapper the ObjectMapper to serialize and deserialize objects
      */
     @Autowired
-    public Cacher(RedisTemplate<String, String> redisTemplate,
-                  ObjectMapper objectMapper) {
+    public Cacher(
+            RedisTemplate<String, String> redisTemplate,
+            ObjectMapper objectMapper
+    ) {
         this.redisTemplate = redisTemplate;
         this.objectMapper = objectMapper;
     }
@@ -41,7 +44,10 @@ public class Cacher {
      * @param departureAt the departure date
      * @return the list of FlightFares if found in cache, otherwise null
      */
-    public List<DepartureInfo> retrieveCache(String origin, String departureAt) {
+    public List<DepartureInfo> retrieveCache(
+            String origin,
+            String departureAt
+    ) {
         String key = generateKey(origin, departureAt);
         String cachedData = redisTemplate.opsForValue().get(key);
         if (cachedData != null) {
@@ -61,7 +67,11 @@ public class Cacher {
      * @param departureAt the departure date
      * @param flightData the list of FlightFares to cache
      */
-    public void storeCache(String origin, String departureAt, List<DepartureInfo> flightData) {
+    public void storeCache(
+            String origin,
+            String departureAt,
+            List<DepartureInfo> flightData
+    ) {
         String key = generateKey(origin, departureAt);
         try {
             String value = objectMapper.writeValueAsString(flightData);
@@ -78,7 +88,10 @@ public class Cacher {
      * @param departureAt the departure date
      * @return the generated cache key
      */
-    private String generateKey(String origin, String departureAt){
+    private String generateKey(
+            String origin,
+            String departureAt
+    ){
         return origin + ":" + departureAt;
     }
 }

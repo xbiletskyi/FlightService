@@ -7,6 +7,7 @@ import aroundtheeurope.flightservice.Models.RyanairResponseModels.Fare;
  * origin and destination airports, and price.
  */
 public class DepartureInfo {
+
     private String flightNumber;
     private String departureAt;
     private String originAirportName;
@@ -37,16 +38,18 @@ public class DepartureInfo {
      * @param price the price of the flight
      * @param currencyCode the currency code of the price
      */
-    public DepartureInfo(String flightNumber,
-                         String departureAt,
-                         String originAirportName,
-                         String originAirportCode,
-                         String originCountryCode,
-                         String destinationAirportName,
-                         String destinationAirportCode,
-                         String destinationCountryCode,
-                         double price,
-                         String currencyCode) {
+    public DepartureInfo(
+            String flightNumber,
+            String departureAt,
+            String originAirportName,
+            String originAirportCode,
+            String originCountryCode,
+            String destinationAirportName,
+            String destinationAirportCode,
+            String destinationCountryCode,
+            double price,
+            String currencyCode
+    ) {
         this.flightNumber = flightNumber;
         this.departureAt = departureAt;
         this.originAirportName = originAirportName;
@@ -74,6 +77,7 @@ public class DepartureInfo {
         );
     }
     // Getters and setters
+
     public String getCurrencyCode() {
         return currencyCode;
     }

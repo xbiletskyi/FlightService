@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Fare {
+
     @JsonProperty("outbound")
     private Outbound outbound;
 
@@ -26,6 +27,7 @@ public class Fare {
     }
 
     // Getters and setters
+
     public Outbound getOutbound() {
         return outbound;
     }

@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Price {
+
     @JsonProperty("value")
     private double value;
 
@@ -31,6 +32,7 @@ public class Price {
     }
 
     // Getters and setters
+
     public String getCurrencyCode() {
         return currencyCode;
     }

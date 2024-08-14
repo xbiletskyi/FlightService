@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Outbound {
+
     @JsonProperty("flightNumber")
     private String flightNumber;
 
@@ -37,7 +38,13 @@ public class Outbound {
      * @param arrivalAirport the arrival airport details
      * @param price the price details
      */
-    public Outbound (String flightNumber, String departureDate, Airport departureAirport, Airport arrivalAirport, Price price) {
+    public Outbound (
+            String flightNumber,
+            String departureDate,
+            Airport departureAirport,
+            Airport arrivalAirport,
+            Price price
+    ) {
         this.flightNumber = flightNumber;
         this.departureDate = departureDate;
         this.departureAirport = departureAirport;
@@ -46,6 +53,7 @@ public class Outbound {
     }
 
     // Getters and setters
+
     public String getFlightNumber() {
         return flightNumber;
     }

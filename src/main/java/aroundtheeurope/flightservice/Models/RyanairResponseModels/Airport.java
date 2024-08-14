@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Airport {
+
     @JsonProperty("iataCode")
     private String iataCode;
 
@@ -29,7 +30,11 @@ public class Airport {
      * @param name the name of the airport
      * @param city the city where the airport is located
      */
-    public Airport(String iataCode, String name, City city) {
+    public Airport(
+            String iataCode,
+            String name,
+            City city
+    ) {
         this.iataCode = iataCode;
         this.name = name;
         this.city = city;

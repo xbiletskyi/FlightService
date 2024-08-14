@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class City {
+
     @JsonProperty("countryCode")
     String countryCode;
 
@@ -24,7 +25,9 @@ public class City {
     public City(String countryCode) {
         this.countryCode = countryCode;
     }
+
     // Getters and setters
+
     public String getCountryCode() {
         return countryCode;
     }

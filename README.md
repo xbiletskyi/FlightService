@@ -1,7 +1,7 @@
 # Flight microservice 
 
 ## Introduction
-The 'Flight' microservice is part of a larger project to find "Chained trip" between two airports.  
+The 'Flight' microservice is part of a larger project to find an interesting trip between two airports.  
 [The overall project description](https://medium.com/@vidime.sa.buduci.rok/explore-europe-by-plane-using-this-tool-0cb52ac69b8b).
 ## Purpose overview 
 The microservice retrieves flights from external API(s) and stores it to its own Redis database as cache. The main idea of
@@ -29,7 +29,7 @@ include only flights within the Schengen Area.
 |---------------|---------|----------|---------|----------------------------------------------------------------|
 | `origin`      | String  | Yes      | None    | The IATA code of the departure airport.                        |
 | `departure_at`| String  | Yes      | None    | The date of departure in the format `yyyy-MM-dd`.              |
-| `daysRange`   | int     | No       | 1       | Number of days in date range                                   |
+| `daysRange`   | int     | No       | 1       | the number of days to search from the departure date           |
 | `schengenOnly`| Boolean | No       | false   | If `true`, only includes flights within the Schengen Area.     |
 #### Responses 
 - **200 OK**
@@ -135,28 +135,48 @@ curl -X GET "http://localhost:60000/v1/departures?origin=JFK&departure_at=2024-0
       }
     ]
 ```
-## How to run
-### Prerequisites 
-- Java 21
-- Gradle
-- Redis server
 
-### Run script
-```bash
-#!/bin/bash
-# Clone the repository
-git clone https://github.com/xbiletskyi/FlightService
-cd FlightService
+[//]: # (## How to run)
 
-# Build the Docker image
-docker build -t flightservice:latest .
+[//]: # (### Prerequisites )
 
-# Run Redis container
-docker run -d -p 6379:6379 --name redis redis
+[//]: # (- Java 21)
 
-# Run the TakeFlights container
-docker run -d -p 60000:8080 --name flightservice --link redis:redis -e REDIS_HOST=redis -e REDIS_PORT=6379 flightservice:latest
+[//]: # (- Gradle)
 
-# Display running containers
-docker ps
-```
+[//]: # (- Redis server)
+
+[//]: # ()
+[//]: # (### Run script)
+
+[//]: # (```bash)
+
+[//]: # (#!/bin/bash)
+
+[//]: # (# Clone the repository)
+
+[//]: # (git clone https://github.com/xbiletskyi/FlightService)
+
+[//]: # (cd FlightService)
+
+[//]: # ()
+[//]: # (# Build the Docker image)
+
+[//]: # (docker build -t flightservice:latest .)
+
+[//]: # ()
+[//]: # (# Run Redis container)
+
+[//]: # (docker run -d -p 6379:6379 --name redis redis)
+
+[//]: # ()
+[//]: # (# Run the TakeFlights container)
+
+[//]: # (docker run -d -p 60000:8080 --name flightservice --link redis:redis -e REDIS_HOST=redis -e REDIS_PORT=6379 flightservice:latest)
+
+[//]: # ()
+[//]: # (# Display running containers)
+
+[//]: # (docker ps)
+
+[//]: # (```)

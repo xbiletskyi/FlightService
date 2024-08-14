@@ -47,7 +47,10 @@ public class RedisConfig {
      * @return the configured RedisTemplate
      */
     @Bean
-    public RedisTemplate<String, List<DepartureInfo>> redisTemplate(LettuceConnectionFactory lettuceConnectionFactory, ObjectMapper redisObjectMapper) {
+    public RedisTemplate<String, List<DepartureInfo>> redisTemplate(
+            LettuceConnectionFactory lettuceConnectionFactory,
+            ObjectMapper redisObjectMapper
+    ) {
         RedisTemplate<String, List<DepartureInfo>> template = new RedisTemplate<>();
         template.setConnectionFactory(lettuceConnectionFactory);
         template.setKeySerializer(new StringRedisSerializer());

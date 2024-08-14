@@ -1,1 +1,1 @@
-rootProject.name = "TakeFlights"
+rootProject.name = "FlightService"

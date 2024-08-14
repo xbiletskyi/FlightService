@@ -10,6 +10,7 @@ import java.util.List;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RyanairResponse {
+
     @JsonProperty("fares")
     private List<Fare> fares;
 
@@ -28,6 +29,7 @@ public class RyanairResponse {
     }
 
     // Getters and setters
+
     public List<Fare> getFares() {
         return fares;
     }
